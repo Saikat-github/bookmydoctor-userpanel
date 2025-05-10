@@ -22,7 +22,7 @@ const Footer = () => {
                     <li className='cursor-pointer hover:underline' onClick={() => navigate("/about")}>Terms & Condition</li>
                     <li className='cursor-pointer hover:underline' onClick={() => navigate("/about")}>Privacy Policy</li>
                     <a
-                        href="/doctorpanel"
+                        href={import.meta.env.VITE_DOCTOR_PANEL_URL}
                         target="_blank"
                         rel="noopener noreferrer"
                         className='hover:underline'>

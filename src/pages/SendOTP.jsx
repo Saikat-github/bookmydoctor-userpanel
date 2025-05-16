@@ -19,7 +19,7 @@ const SendOTP = () => {
     const navigate = useNavigate();
 
     const handleSendOTP = async (data) => {
-            if (cooldown > 0) return toast.warn(`Please wait ${cooldown}s before resending`);
+        if (cooldown > 0) return toast.warn(`Please wait ${cooldown}s before resending`);
         const { email, date } = data;
         setLoader(true);
         try {
@@ -28,7 +28,7 @@ const SendOTP = () => {
                 setEmail(data.email);
                 toast.success(res.data.message);
                 setShowOTPInput(true);
-                setCooldown(60); 
+                setCooldown(60);
             } else {
                 toast.error(res.data.message);
             }
@@ -51,9 +51,7 @@ const SendOTP = () => {
             if (res.data.success) {
                 toast.success(res.data.message);
                 // Redirect to doctor page after 2 seconds
-                setTimeout(() => {
-                    window.location.href = `/appointments/${doctorId}`;
-                }, 2500);
+                setTimeout(() => navigate(`/appointments/${doctorId}`), 2000);
             } else {
                 toast.error(res.data.message);
             }
@@ -117,37 +115,38 @@ const SendOTP = () => {
                         >
                             {loader ? 'Sending OTP...' : 'Send OTP'}
                         </button>
-                        <p
-                            className='text-sm text-center mt-2 text-indigo-600  font-medium w-full cursor-pointer' onClick={() => navigate(`/appointments/${doctorId}`)}>Back</p>
                     </form>
                 ) : (
                     <>
-                    <form onSubmit={handleSubmit(handleResetPassword)} className='text-sm'>
-                        <div className="mb-4">
-                            <label className="block text-gray-700 mb-2">Enter OTP sent to your email</label>
-                            <input
-                                type="number"
-                                {...register('otp', { required: true })}
-                                className="w-full p-2 border border-gray-400 rounded"
-                                required
-                                maxLength="6"
-                            />
-                        </div>
+                        <form onSubmit={handleSubmit(handleResetPassword)} className='text-sm'>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 mb-2">Enter OTP sent to your email</label>
+                                <input
+                                    type="number"
+                                    {...register('otp', { required: true })}
+                                    className="w-full p-2 border border-gray-400 rounded"
+                                    required
+                                    maxLength="6"
+                                />
+                            </div>
+                            <button
+                                disabled={loader}
+                                type="submit"
+                                className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-2 rounded hover:bg-slate-800 transition-all duration-300"
+                            >
+                                {loader ? 'Verifying...' : 'Verify'}
+                            </button>
+                        </form>
                         <button
-                            disabled={loader}
-                            type="submit"
-                            className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-2 rounded hover:bg-slate-800 transition-all duration-300"
-                        >
-                            {loader ? 'Verifying...' : 'Verify'}
-                        </button>
-                    </form>
-                    <button
                             disabled={cooldown > 0}
                             onClick={() => setShowOTPInput(false)} className='text-indigo-700 hover:underline mt-2'>Resend OTP in {cooldown}s
                         </button>
                     </>
                 )}
-
+            <p
+                className='text-sm text-center mt-2 text-indigo-600  font-medium w-full cursor-pointer' onClick={() => navigate(`/appointments/${doctorId}`)}>
+                Back
+            </p>
         </div>
     )
 }

@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams, useLocation } from 'react-router-dom'
+import { useContext } from 'react'
+import { useParams, useLocation } from 'react-router-dom'
 import { AppContext } from '../context/AppContext';
 import { DoctorProfileCard } from '../components';
 
@@ -7,7 +7,6 @@ import { DoctorProfileCard } from '../components';
 
 const Appoinments = () => {
   const { doctorId } = useParams();
-  const navigate = useNavigate();
   const { doctors, searchResults } = useContext(AppContext);
   const location = useLocation();
   const fromPage = location.state?.from;

@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useSocket } from "./useSocket";
-import {Loader2} from "lucide-react"
+import { Loader2 } from "lucide-react"
+
+
+const formatDate = (date) => {
+  if (!date) return "Invalid Date";
+  const parsedDate = new Date(date);
+  if (isNaN(parsedDate)) return "Invalid Date";
+
+  const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+  return parsedDate.toLocaleString(undefined, options);
+};
 
 
 const RealTimeStatus = ({ date, doctorId, avgTime }) => {
-  const {data, status, loader} = useSocket(doctorId, date);
-
-  const formatDate = (date) => {
-    if (!date) return "Invalid Date";
-    const parsedDate = new Date(date);
-    if (isNaN(parsedDate)) return "Invalid Date";
-
-    const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
-    return parsedDate.toLocaleString(undefined, options);
-  };
+  const { data, status, loader } = useSocket(doctorId, date);
 
 
 
@@ -27,7 +28,7 @@ const RealTimeStatus = ({ date, doctorId, avgTime }) => {
         </div>
 
         {loader ? (
-          <Loader2 className="w-6 animate-spin text-indigo-500"/>
+          <Loader2 className="w-6 animate-spin text-indigo-500" />
         ) : (
           <>
             <div className="flex items-center mb-2">

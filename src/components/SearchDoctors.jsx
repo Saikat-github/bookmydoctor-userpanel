@@ -9,7 +9,6 @@ import RecentSearches from './RecentSearches';
 
 const SearchDoctors = () => {
     const [cursor, setCursor] = useState(null);
-    const [hasNextPage, setHasNextPage] = useState(true);
     const [loader, setLoader] = useState(false);
     const [suggestions, setSuggestions] = useState([])
 
@@ -31,7 +30,6 @@ const SearchDoctors = () => {
             setSearchResults([]);
             return;
         }
-        
 
         try {
             setLoader(true);
@@ -42,7 +40,6 @@ const SearchDoctors = () => {
             if (res.data.success) {
                 setSearchResults(res.data.doctors);
                 setCursor(res.data.nextCursor);
-                setHasNextPage(res.data.hasNextPage);
             }
         } catch (error) {
             console.log(error);

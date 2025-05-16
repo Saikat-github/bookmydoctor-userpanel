@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { AppContext } from '../context/AppContext';
@@ -16,7 +16,7 @@ const DoctorsPage = () => {
       city: '',
     },
   });
-  const { doctors, getDoctorsData, loader, hasNextPage, cursor } = useContext(AppContext);
+  const { doctors, getDoctorsData, loader, hasNextPage } = useContext(AppContext);
   const selectedSpecialist = watch('speciality');
   const city = watch('city');
 

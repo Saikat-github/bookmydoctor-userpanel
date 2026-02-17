@@ -30,6 +30,7 @@ const DoctorProfileCard = ({ doctorData }) => {
     const navigate = useNavigate();
     const { setQRCodeData, setApiData } = useContext(AppContext);
     
+    
     // Extract values with safe fallbacks to prevent errors
     const {
         _id = '',

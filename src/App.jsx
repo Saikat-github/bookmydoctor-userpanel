@@ -1,18 +1,16 @@
-import React, { useContext, useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
-import { Footer, Navbar, ScrollToTop } from './components'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import { AppContext } from './context/AppContext'
+import { Toaster } from "react-hot-toast";
+import { Footer, Navbar, ScrollToTop } from './components';
+
 
 
 const App = () => {
 
   return (
-    <div className='mx-4 sm:mx-[10%]'>
+    <div className='mx-4 sm:mx-[10%] text-slate-700'>
       <Navbar />
-      <ToastContainer />
-      <main className='min-h-[100vh] py-2'>
+      <Toaster />
+      <main className='min-h-screen py-2 mt-16 sm:mt-20'>
         <ScrollToTop />
         <Outlet />
       </main>

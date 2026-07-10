@@ -3,26 +3,16 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Home from './pages/Home.jsx'
-import DoctorsPage from './pages/DoctorsPage.jsx'
-import Login from './pages/Login.jsx'
-import Contact from './pages/Contact.jsx'
-import MyProfile from './pages/MyProfile.jsx'
-import MyAppointments from './pages/MyAppointments.jsx'
-import Appoinments from './pages/Appoinments.jsx'
 import AppContextProvider from './context/AppContext.jsx'
-import BookingForm from './components/BookingForm.jsx'
-import SendOTP from './pages/SendOTP.jsx'
-import NotFound from './pages/NotFound.jsx'
+import { AllDoctors, BookingPage, Contact, GetLostQR, Home, Login, NotFound, SingleDoctor } from './pages/index.js'
+
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <AppContextProvider>
-        <App />
-      </AppContextProvider>
+      <App />
     ),
     children: [
       {
@@ -31,39 +21,31 @@ const router = createBrowserRouter([
       },
       {
         path: "/doctors",
-        element: <DoctorsPage />
+        element: <AllDoctors />
       },
       {
         path: "/doctors/:speciality",
-        element: <DoctorsPage />
+        element: <AllDoctors />
       },
       {
         path: "/login",
         element: <Login />
       },
       {
+        path: "/doctor/:docAuthId",
+        element: <SingleDoctor />
+      },
+      {
+        path: "/booking-page/:docAuthId",
+        element: <BookingPage />
+      },
+      {
+        path: "/get-lost-qr/:docAuthId",
+        element: <GetLostQR />
+      },
+      {
         path: "/contact",
         element: <Contact />
-      },
-      {
-        path: "/my-profile",
-        element: <MyProfile />
-      },
-      {
-        path: "/my-appointments",
-        element: <MyAppointments />
-      },
-      {
-        path: "/appointments/:doctorId",
-        element: <Appoinments />
-      },
-      {
-        path:"/book-appointment/:doctorId",
-        element: <BookingForm />
-      },
-      {
-        path:"/otp-verification/:doctorId",
-        element: <SendOTP />
       },
       {
         path: "*",
@@ -73,8 +55,11 @@ const router = createBrowserRouter([
   }
 ])
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AppContextProvider>
+      <RouterProvider router={router} />
+    </AppContextProvider>
   </StrictMode>,
 )

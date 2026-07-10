@@ -1,30 +1,30 @@
 import { createContext, useEffect, useState } from "react";
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import toast from "react-hot-toast";
 
 
 export const AppContext = createContext();
 
+
 const AppContextProvider = (props) => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY
+    const title = "bookmydoctor"
     const [loader, setLoader] = useState(false);
     const [doctors, setDoctors] = useState([]);
     const [cursor, setCursor] = useState(null);
     const [hasNextPage, setHasNextPage] = useState(true);
-    const [qrCodeData, setQRCodeData] = useState();
-    const [apiData, setApiData] = useState();
-    const [searchResults, setSearchResults] = useState([]);
+    const [qrCodeData, setQRCodeData] = useState(null);
 
 
-
-    const getDoctorsData = async (speciality="", city="") => {
+    const getDoctorsData = async (speciality="", city="", name="") => {
         try {
             setLoader(true);
-            const res = await axios.get(`${backendUrl}/api/user/all-doctors`, {
+            const res = await axios.get(`${backendUrl}/api/user/doctors`, {
                 params: {
                     speciality,
                     city,
+                    name,
                     cursor
                 }
             });
@@ -47,8 +47,6 @@ const AppContextProvider = (props) => {
 
 
 
-
-
     useEffect(() => {
         getDoctorsData();
     }, [])
@@ -63,15 +61,14 @@ const AppContextProvider = (props) => {
         backendUrl,
         getDoctorsData,
         qrCodeData, setQRCodeData,
-        apiData, setApiData,
         hasNextPage,
         cursor,
         setHasNextPage,
         setCursor,
-        searchResults, 
-        setSearchResults,
-        recaptchaSiteKey
+        recaptchaSiteKey,
+        title
     }
+
 
 
 

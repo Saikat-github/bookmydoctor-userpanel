@@ -13,23 +13,10 @@ export function useSocket(docAuthId, date) {
     const { backendUrl } = useContext(AppContext);
 
     const socketRef = useRef(null);
-    const pollingInterval = useRef(null);
     const paramsRef = useRef({ docAuthId, date });
 
     // keep latest params available to callbacks without recreating them
     paramsRef.current = { docAuthId, date };
-
-    const startPolling = useCallback(() => {
-        if (pollingInterval.current) return;
-        pollingInterval.current = setInterval(fetchRealTimeStatus, 10000);
-    }, []);
-
-    const stopPolling = useCallback(() => {
-        if (pollingInterval.current) {
-            clearInterval(pollingInterval.current);
-            pollingInterval.current = null;
-        }
-    }, []);
 
     const fetchRealTimeStatus = useCallback(async () => {
         const { docAuthId, date } = paramsRef.current;
@@ -57,7 +44,6 @@ export function useSocket(docAuthId, date) {
 
         socket.on('connect', () => {
             setStatus('connected');
-            stopPolling();
             const { docAuthId, date } = paramsRef.current;
             if (docAuthId && date) {
                 socket.emit('subscribe-to-doctor', { docAuthId, date });
@@ -67,12 +53,10 @@ export function useSocket(docAuthId, date) {
         // fires on any drop AFTER a successful connect (server restart, network blip, etc.)
         socket.on('disconnect', () => {
             setStatus('failed');
-            startPolling();
         });
 
         socket.on('connect_error', () => {
             setStatus('failed');
-            startPolling();
         });
 
         socket.on('current-patient-update', (socketData) => {
@@ -80,11 +64,10 @@ export function useSocket(docAuthId, date) {
         });
 
         return () => {
-            stopPolling();
             socket.disconnect();
             socketRef.current = null;
         };
-    }, [startPolling, stopPolling]);
+    }, [backendUrl]);
 
     // Effect 2: handle subscription target changes (docAuthId/date) without
     // touching the socket connection itself.

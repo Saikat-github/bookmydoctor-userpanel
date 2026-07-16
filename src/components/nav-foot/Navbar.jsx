@@ -27,7 +27,7 @@ const Navbar = () => {
 
                 <Link to="/" className='flex items-center gap-1'>
                     <p className='sm:text-2xl bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent'>
-                        bookmydoctor
+                        bookmeadr.
                     </p>
                 </Link>
 

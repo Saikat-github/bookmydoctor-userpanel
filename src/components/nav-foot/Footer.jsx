@@ -30,9 +30,9 @@ const Footer = () => {
             </div>
             <div className='mt-12 text-xs  text-center flex flex-col justify-center gap-4'>
                 <div className='flex items-center justify-center px-6 py-2 mx-auto rounded-full text-3xl sm:text-5xl font-semibold'>
-                        bookmydoctor
+                        bookmeadr.
                 </div>
-                <p className=''>Copyright {new Date().getFullYear()} &copy;bookmydoctor All Rights Reserved.</p>
+                <p className=''>Copyright {new Date().getFullYear()} &copy;bookmeadr. All Rights Reserved.</p>
             </div>
         </div>
     )

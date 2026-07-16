@@ -65,22 +65,17 @@ const QRCode = ({ docAuthId }) => {
 
 
   return (
-    <div className='flex flex-col items-center justify-center gap-4 w-full max-w-md p-6 shadow-2xl bg-white rounded-2xl'>
+    <div className='flex flex-col items-center justify-center gap-4 w-full max-w-sm p-6 shadow-2xl bg-white rounded-2xl'>
       <div className="flex flex-col justify-center space-y-4 px-4 bg-white" ref={componentRef}>
 
-        {/* Title above QR code */}
-        <h3 className="text-lg font-semibold text-slate-950 text-center">
-          {title} QR
-        </h3>
-
         {/* QR code with logo */}
-        <div className="relative flex justify-center items-center py-4">
+        <div className="relative flex flex-col justify-center items-center space-y-2 py-4 ">
           <QRCodeSVG
             value={qrCodeData}
             size={256}
             level={"H"} // High error correction level to accommodate logo
             imageSettings={{
-              src: assets.reactLogo,
+              src: "/bookmeadr-logo-black.svg",
               x: undefined, // Centered by default
               y: undefined,
               height: 40, // Adjust logo size
@@ -88,6 +83,9 @@ const QRCode = ({ docAuthId }) => {
               excavate: true, // Clears background behind the logo
             }}
           />
+          <h3 className="text-sm text-slate-950 text-center">
+            {title}
+          </h3>
         </div>
 
         {/* Details below QR code */}
@@ -100,7 +98,7 @@ const QRCode = ({ docAuthId }) => {
       </div>
 
       {/* Download button */}
-      <div className='my-2 w-full max-w-[256px] flex items-center justify-between gap-4 text-sm'>
+      <div className='w-full max-w-[256px] flex items-center justify-between gap-4 text-sm'>
         <button
           onClick={() => navigate(`/doctor/${docAuthId}`)} className='bg-indigo-600 text-white px-3 py-1 rounded-lg hover:bg-indigo-700 flex items-center gap-1'>
           <ArrowLeft className='w-4' />

@@ -9,7 +9,7 @@ export const AppContext = createContext();
 const AppContextProvider = (props) => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY
-    const title = "bookmydoctor"
+    const title = "bookmeadr.com"
     const [loader, setLoader] = useState(false);
     const [doctors, setDoctors] = useState([]);
     const [cursor, setCursor] = useState(null);
